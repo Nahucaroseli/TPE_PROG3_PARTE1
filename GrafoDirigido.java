@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -157,29 +160,58 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// TODO Auto-generated method stub
 		return this.cantArcos;
 	}
-
+	/**
+	* Complejidad: O(1), La complejidad computacional del método obtenerVertices() es O(1) en 
+	* el peor caso, ya que simplemente devuelve 
+	* un iterador sobre las claves del mapa subyacente, 
+	* que es una operación de tiempo constante en Java.
+	*/
 	@Override
 	public Iterator<Integer> obtenerVertices() {
-		// TODO Auto-generated method stub
-		return null;
+	    return mapa.keySet().iterator();
 	}
-
+	
+	/**
+	* Complejidad: O(n), La complejidad computacional del método es O(n),
+	* ya que en el peor caso se tendra que recorrer toda la lista de adyacencia, para 
+	* buscar los adyacentes.
+	*/
 	@Override
 	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
-		// TODO Auto-generated method stub
-		return null;
+	    if (contieneVertice(verticeId)) {
+	        Set<Arco<T>> adyacentes = mapa.get(verticeId);
+	        List<Integer> verticesAdyacentes = new ArrayList<>();
+	        for (Arco<T> arco : adyacentes) {
+	            verticesAdyacentes.add(arco.getVerticeDestino());
+	        }
+	        return verticesAdyacentes.iterator();
+	    }
+	    return null;
 	}
-
+	/**
+	* Complejidad: O(n), La complejidad computacional del método es O(n),
+	* ya que se tendra que recorrer todo el grafo pasando por todos los vertices y arcos.
+	*/
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
-		// TODO Auto-generated method stub
-		return null;
+	    Set<Arco<T>> arcos = new HashSet<>();
+	    for (Set<Arco<T>> adyacentes : mapa.values()) {
+	        arcos.addAll(adyacentes);
+	    }
+	    return arcos.iterator();
 	}
-
+	/**
+	* Complejidad: O(n), La complejidad computacional del método es O(n),
+	* ya que en el peor caso se encuentra el vertice y se tendra que recorrer toda la lista de adyacencia
+	* del vertice para obtener los arcos.
+	*/
 	@Override
 	public Iterator<Arco<T>> obtenerArcos(int verticeId) {
-		// TODO Auto-generated method stub
-		return null;
+	    if (contieneVertice(verticeId)) {
+	        Set<Arco<T>> adyacentes = mapa.get(verticeId);
+	        return adyacentes.iterator();
+	    }
+	    return null;
 	}
 
 
