@@ -66,7 +66,14 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 
 	}
-
+	
+	/**
+	* Complejidad: O(1), en este metodo la complejidad es O(1), ya que se comprueba
+	* si ambos vertices existen en el grafo, esto es una operacion O(1) en la tabla, despues se 
+	* accede a la lista de adyacencia que tambien es una operacion O(1), y por ultimo 
+	* se agrega un arco nuevo a la lista, que tambien es una operacion O(1), lo cual 
+	* determina que la complejidad computacional total del metodo es O(1)
+	*/
 	@Override
 	public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
 		if (contieneVertice(verticeId1) && contieneVertice(verticeId2)) {
@@ -77,38 +84,74 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 
 	}
-
+	/**
+	* Complejidad: O(n), en este metodo la complejidad es O(n), ya que hay que buscar la lista 
+	* de arcos adyacentes al verticeId1, y luego buscar el arco que va desde verticeId1 a verticeId2 dentro
+	* de la lista. En el peor caso, se tendra que recorrer toda la lista para borrar el arco existente entre
+	* los dos vertices.
+	*/
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
-		
-
+		if (contieneVertice(verticeId1) && contieneVertice(verticeId2)) {
+			Set<Arco<T>> adyacentes = mapa.get(verticeId1);
+			if (adyacentes.remove(new Arco<>(verticeId1, verticeId2, null))) {
+				cantArcos--;
+			}
+		}
 	}
-
+	/**
+	* Complejidad: O(1), este metodo tiene una complejidad de O(1), ya que se debe realizar
+	* una operacion de busqueda en el mapa usando el verticeId, lo cual es de un solo acceso.
+	*/
 	@Override
 	public boolean contieneVertice(int verticeId) {
-		// TODO Auto-generated method stub
-		return false;
+		return mapa.containsKey(verticeId);
 	}
-
+	/**
+	* Complejidad: O(n), este metodo tiene una complejidad de O(n), ya que el metodo contains del mapa debe realizar
+	* un recorrido por toda la lista de adyacentes del vertice, para encontrar el arco que llega hasta el verticeId2.
+	* Por lo tanto, en el peor caso se tendra que recorrer toda la lista.
+	*/
 	@Override
 	public boolean existeArco(int verticeId1, int verticeId2) {
-		// TODO Auto-generated method stub
+		if (contieneVertice(verticeId1) && contieneVertice(verticeId2)) {
+			Set<Arco<T>> adyacentes = mapa.get(verticeId1);
+			return adyacentes.contains(new Arco<>(verticeId1, verticeId2, null));
+		}
 		return false;
 	}
-
+	/**
+	* Complejidad: O(n), este metodo tiene una complejidad de O(n), ya que se debe realizar
+	* un recorrido por toda la lista de adyacentes del verticeId1, para encontrar el arco que llega hasta el verticeId2.
+	* Por lo tanto, en el peor caso se tendra que recorrer toda la lista.
+	*/
 	@Override
 	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
-		// TODO Auto-generated method stub
-		return null;
+	    if (contieneVertice(verticeId1) && contieneVertice(verticeId2)) {
+	        Set<Arco<T>> adyacentes = mapa.get(verticeId1);
+	        for (Arco<T> arco : adyacentes) {
+	            if (arco.getVerticeDestino() == verticeId2) {
+	                return arco;
+	            }
+	        }
+	    }
+	    return null;
 	}
 
-	
+	/**
+	* Complejidad: O(1), este metodo tiene una complejidad de O(1), ya que se debe devolver
+	* la cantidad de vertices que existen en el grafo, lo cual es una operacion de un solo acceso.
+	*/
 	@Override
 	public int cantidadVertices() {
 		// TODO Auto-generated method stub
 		return this.cantVertices;
 	}
 
+	/**
+	* Complejidad: O(1), este metodo tiene una complejidad de O(1), ya que se debe devolver
+	* la cantidad de arcos que existen en el grafo, lo cual es una operacion de un solo acceso.
+	*/
 	@Override
 	public int cantidadArcos() {
 		// TODO Auto-generated method stub
