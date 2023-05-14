@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 public class ServicioBFS {
@@ -28,7 +30,6 @@ private Grafo<?> grafo;
 	
 	
 	private void bfs(int vertice, List<Integer> vertices,List<Integer> fila, Set<Integer> visitados) {
-		vertices.add(vertice);
 		visitados.add(vertice);
 		fila.add(vertice);
 		while(!fila.isEmpty()) {
@@ -38,11 +39,13 @@ private Grafo<?> grafo;
 			while(it.hasNext()) {
 				int adyacente = it.next();
 				if(!visitados.contains(adyacente)) {
+					vertices.add(adyacente);
 					visitados.add(adyacente);
 					fila.add(adyacente);
 				}
 			}
 		}
+		
 	}
 	
 	
