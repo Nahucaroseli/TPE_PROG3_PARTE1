@@ -21,38 +21,45 @@ public class ServicioCaminos {
 
 	public List<List<Integer>> caminos() {
 	    List<List<Integer>> caminos = new ArrayList<>();
-	    Set<Integer> visitados = new HashSet<>();
+	    Set<Arco<?>> visitados = new HashSet<>();
 	    List<Integer> camino = new ArrayList<>();
 	    camino.add(origen);
 	    caminosGrafo(origen, visitados, caminos, camino, 0);
 	    return caminos;
 	}
 
-	private void caminosGrafo(int v, Set<Integer> visitados, List<List<Integer>> caminos, List<Integer> camino, int cantArcos) {
-	    visitados.add(v);
-	    if (destino == v && cantArcos <= lim) {
+	private void caminosGrafo(int v, Set<Arco<?>> visitados, List<List<Integer>> caminos, List<Integer> camino, int cantArcos) {
+		visitados.add(new Arco<>(camino.get(camino.size() - 1), v, null));
+	    if (cantArcos > lim) {
+	        return;
+	    }
+	    if (destino == v) {
 	        caminos.add(new ArrayList<>(camino));
 	        return;
 	    }
-	    if (cantArcos > lim) {
-	        return;
-	    }else if(cantArcos < lim) {
-	    	Iterator<Integer> it = grafo.obtenerAdyacentes(v);
-		    while (it.hasNext()) {
-		        int verticeDestino = it.next();
-		        if (!visitados.contains(verticeDestino)) {
-		        	visitados.add(verticeDestino);
-		            camino.add(verticeDestino);
-		            cantArcos++;
-		            caminosGrafo(verticeDestino, visitados, caminos, camino, cantArcos);
-		            camino.remove(camino.size() - 1);
-		            cantArcos--;
-		            visitados.remove(verticeDestino);
-		        }
-		    }
-		    visitados.remove(v);
-	    }
 	    
+	    Iterator<Integer> it = grafo.obtenerAdyacentes(v);
+	    while (it.hasNext()) {
+	        int verticeDestino = it.next();
+	        Arco<?> arco = new Arco<>(v, verticeDestino, null);
+	        if (!existeArcoVisitado(arco, visitados)) {
+	            visitados.add(arco);
+	            camino.add(verticeDestino);
+	            caminosGrafo(verticeDestino, visitados, caminos, camino, cantArcos + 1);
+	            camino.remove(camino.size() - 1);
+	            visitados.remove(arco);
+	        }
+	    }
+	    visitados.remove(new Arco<>(camino.get(camino.size() - 1), v, null));
+	}
+
+	private boolean existeArcoVisitado(Arco<?> arco, Set<Arco<?>> visitados) {
+	    for (Arco<?> visitado : visitados) {
+	        if (visitado.getVerticeOrigen() == arco.getVerticeOrigen() && visitado.getVerticeDestino() == arco.getVerticeDestino()) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 }

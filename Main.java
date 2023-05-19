@@ -28,14 +28,13 @@ public class Main {
 		grafo.agregarArco(8, 3, "8 y 3");
 		grafo.agregarArco(3, 9, "3 y 9");
 		grafo.agregarArco(1, 10, "1 y 10");
-		grafo.agregarArco(1, 2, "1 y 2");
 		grafo.agregarArco(6, 5, "6 y 5");
 		grafo.agregarArco(6, 7, "6 y 7");
 		grafo.agregarArco(7, 8, "7 y 8");
 		
 		ServicioDFS dfs = new ServicioDFS(grafo);
 		ServicioBFS bfs = new ServicioBFS(grafo);
-		ServicioCaminos caminos = new ServicioCaminos(grafo,1,3,7);
+		ServicioCaminos caminos = new ServicioCaminos(grafo,2,4,7);
 		System.out.println(caminos.caminos());
 		
 	}
