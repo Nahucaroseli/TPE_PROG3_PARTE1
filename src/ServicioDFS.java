@@ -15,27 +15,27 @@ public class ServicioDFS {
 	
 	
 	public List<Integer> dfsForest() {
-	    List<Integer> vertices = new ArrayList<>();
-	    Set<Integer> visitados = new HashSet<>();
+	    List<Integer> listaVertices = new ArrayList<>();
+	    Set<Integer> verticesVisitados = new HashSet<>();
 	    Iterator<Integer> it = grafo.obtenerVertices();
 	    while (it.hasNext()) {
 	        int vertice = it.next(); 
-	        if (!visitados.contains(vertice)) {
-	        	dfs(vertice,visitados,vertices);
+	        if (!verticesVisitados.contains(vertice)) {
+	        	dfs(vertice,verticesVisitados,listaVertices);
 	        }
 	    }
 	    
-	    return vertices;
+	    return listaVertices;
 	}
 
-	private void dfs(int verticeId, Set<Integer> visitados, List<Integer> vertices) {
-	    visitados.add(verticeId);
-	    vertices.add(verticeId);
-	    Iterator<Integer> it = grafo.obtenerAdyacentes(verticeId);
+	private void dfs(int v, Set<Integer> verticesVisitados, List<Integer> listaVertices) {
+	    verticesVisitados.add(v);
+	    listaVertices.add(v);
+	    Iterator<Integer> it = grafo.obtenerAdyacentes(v);
 	    while (it.hasNext()) {
-	        int verticeDestino = it.next(); 
-	        if (!visitados.contains(verticeDestino)) {
-	        	dfs(verticeDestino,visitados,vertices);
+	        int siguienteVertice = it.next(); 
+	        if (!verticesVisitados.contains(siguienteVertice)) {
+	        	dfs(siguienteVertice,verticesVisitados,listaVertices);
 	        }
 	    }
 	    
