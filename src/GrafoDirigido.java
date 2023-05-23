@@ -97,7 +97,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public void borrarArco(int verticeId1, int verticeId2) {
 		if (contieneVertice(verticeId1) && contieneVertice(verticeId2)) {
 			Set<Arco<T>> adyacentes = mapa.get(verticeId1);
-			if (adyacentes.remove(new Arco<>(verticeId1, verticeId2, null))) {
+			if (adyacentes.remove(obtenerArco(verticeId1,verticeId2))) {
 				cantArcos--;
 			}
 		}
@@ -119,7 +119,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public boolean existeArco(int verticeId1, int verticeId2) {
 		if (contieneVertice(verticeId1) && contieneVertice(verticeId2)) {
 			Set<Arco<T>> adyacentes = mapa.get(verticeId1);
-			return adyacentes.contains(new Arco<>(verticeId1, verticeId2, null));
+			return adyacentes.contains(obtenerArco(verticeId1,verticeId2));
 		}
 		return false;
 	}

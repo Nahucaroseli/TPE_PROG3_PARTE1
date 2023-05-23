@@ -37,7 +37,6 @@ public class ServicioCaminos {
 	        caminos.add(new ArrayList<>(camino));
 	        return;
 	    }
-	    
 	    Iterator<Integer> it = grafo.obtenerAdyacentes(v);
 	    while (it.hasNext()) {
 	        int verticeDestino = it.next();
