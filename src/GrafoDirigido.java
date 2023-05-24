@@ -111,7 +111,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return mapa.containsKey(verticeId);
 	}
 	/**
-	* Complejidad: O(n), este metodo tiene una complejidad de O(n), ya que el metodo contains del mapa debe realizar
+	* Complejidad: O(V), este metodo tiene una complejidad de O(V), ya que el metodo contains del mapa debe realizar
 	* un recorrido por toda la lista de adyacentes del vertice, para encontrar el arco que llega hasta el verticeId2.
 	* Por lo tanto, en el peor caso se tendra que recorrer toda la lista.
 	*/
@@ -124,7 +124,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return false;
 	}
 	/**
-	* Complejidad: O(n), este metodo tiene una complejidad de O(n), ya que se debe realizar
+	* Complejidad: O(A), este metodo tiene una complejidad de O(A), ya que se debe realizar
 	* un recorrido por toda la lista de adyacentes del verticeId1, para encontrar el arco que llega hasta el verticeId2.
 	* Por lo tanto, en el peor caso se tendra que recorrer toda la lista.
 	*/
@@ -172,7 +172,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 	
 	/**
-	* Complejidad: O(n), La complejidad computacional del método es O(n),
+	* Complejidad: O(A), La complejidad computacional del método es O(A),
 	* ya que en el peor caso se tendra que recorrer toda la lista de adyacencia, para 
 	* buscar los adyacentes.
 	*/
@@ -189,7 +189,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	    return null;
 	}
 	/**
-	* Complejidad: O(n), La complejidad computacional del método es O(n),
+	* Complejidad: O(V+A), La complejidad computacional del método es O(V+A), donde V es la
+	* cantidad de vertices y A la cantidad de arcos.
 	* ya que se tendra que recorrer todo el grafo pasando por todos los vertices y arcos.
 	*/
 	@Override
@@ -201,7 +202,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	    return arcos.iterator();
 	}
 	/**
-	* Complejidad: O(n), La complejidad computacional del método es O(n),
+	* Complejidad: O(V+A), La complejidad computacional del método es O(V+A),
 	* ya que en el peor caso se encuentra el vertice y se tendra que recorrer toda la lista de adyacencia
 	* del vertice para obtener los arcos.
 	*/
